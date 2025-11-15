@@ -1,0 +1,134 @@
+[
+    {
+        "id": "fa3be15e34f69480",
+        "type": "group",
+        "z": "34d2b246049c07ac",
+        "name": "energy-charts.info",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "976cbbe97703b73c",
+            "dc3f10090b265559",
+            "80a7640b396cefc7",
+            "7cdc1fdaed08607f",
+            "729f04a913940773"
+        ],
+        "x": 74,
+        "y": 279,
+        "w": 612,
+        "h": 122
+    },
+    {
+        "id": "976cbbe97703b73c",
+        "type": "inject",
+        "z": "34d2b246049c07ac",
+        "g": "fa3be15e34f69480",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "dc3f10090b265559"
+            ]
+        ]
+    },
+    {
+        "id": "dc3f10090b265559",
+        "type": "http request",
+        "z": "34d2b246049c07ac",
+        "g": "fa3be15e34f69480",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.energy-charts.info/price?bzn=NL",
+        "tls": "f03098b9a0460f11",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "80a7640b396cefc7"
+            ]
+        ]
+    },
+    {
+        "id": "80a7640b396cefc7",
+        "type": "json",
+        "z": "34d2b246049c07ac",
+        "g": "fa3be15e34f69480",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 360,
+        "wires": [
+            [
+                "7cdc1fdaed08607f"
+            ]
+        ]
+    },
+    {
+        "id": "7cdc1fdaed08607f",
+        "type": "debug",
+        "z": "34d2b246049c07ac",
+        "g": "fa3be15e34f69480",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "729f04a913940773",
+        "type": "comment",
+        "z": "34d2b246049c07ac",
+        "g": "fa3be15e34f69480",
+        "name": "Source",
+        "info": "https://energy-charts.info/api.html?l=en&c=NL",
+        "x": 150,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f03098b9a0460f11",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    }
+]
