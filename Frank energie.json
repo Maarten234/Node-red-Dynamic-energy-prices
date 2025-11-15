@@ -1,0 +1,176 @@
+[
+    {
+        "id": "64ea2b9ee582ee3f",
+        "type": "group",
+        "z": "34d2b246049c07ac",
+        "name": "Frank Energie",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "7d47e8b620afce91",
+            "61b8f633cd61b3ca",
+            "e01bfc34eb032eae",
+            "d60e37115041d2d0",
+            "c69dd9453cadc14c",
+            "54a1c915241d5b06",
+            "0df666167e01f525"
+        ],
+        "x": 74,
+        "y": 79,
+        "w": 772,
+        "h": 142
+    },
+    {
+        "id": "7d47e8b620afce91",
+        "type": "inject",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "54a1c915241d5b06"
+            ]
+        ]
+    },
+    {
+        "id": "61b8f633cd61b3ca",
+        "type": "http request",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://graphql.frankenergie.nl",
+        "tls": "f03098b9a0460f11",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 470,
+        "y": 180,
+        "wires": [
+            [
+                "e01bfc34eb032eae"
+            ]
+        ]
+    },
+    {
+        "id": "e01bfc34eb032eae",
+        "type": "json",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 610,
+        "y": 180,
+        "wires": [
+            [
+                "d60e37115041d2d0"
+            ]
+        ]
+    },
+    {
+        "id": "d60e37115041d2d0",
+        "type": "debug",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c69dd9453cadc14c",
+        "type": "function",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "electriciteit en gas",
+        "func": "msg.query = `query MarketPrices {\n  marketPrices(date:\\\"2025-11-14\\\") {\n    electricityPrices {\n      from\n      till\n      marketPrice\n      marketPriceTax\n      sourcingMarkupPrice\n      energyTaxPrice\n      perUnit\n    }\n    gasPrices {\n      from\n      till\n      marketPrice\n      marketPriceTax\n      sourcingMarkupPrice\n      energyTaxPrice\n      perUnit\n    }\n  }\n}`;\n\nmsg.payload = {\n    query: msg.query\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "54a1c915241d5b06",
+        "type": "function",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "electriciteit",
+        "func": "msg.payload = {\n    query: `query MarketPrices {\n  marketPrices(date:\\\"2025-11-15\\\") {\n    electricityPrices {\n      from\n      till\n      marketPrice\n      marketPriceTax\n      sourcingMarkupPrice\n      energyTaxPrice\n      perUnit\n    }\n  }\n}`\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "61b8f633cd61b3ca"
+            ]
+        ]
+    },
+    {
+        "id": "0df666167e01f525",
+        "type": "comment",
+        "z": "34d2b246049c07ac",
+        "g": "64ea2b9ee582ee3f",
+        "name": "Source",
+        "info": "https://reversed.notion.site/Marktprijzen-API-89ce600a88ac4abe8c2ad89d3167a83e",
+        "x": 150,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f03098b9a0460f11",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    }
+]
